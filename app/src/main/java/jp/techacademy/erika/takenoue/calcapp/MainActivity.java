@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.widget.Button;
 import android.widget.EditText;
 import java.math.BigDecimal;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -49,8 +50,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             intent.putExtra("VALUE1", big1.subtract(big2));
         } else if (v.getId() == R.id.button3) {
             intent.putExtra("VALUE1", big1.multiply(big2));
-        } else if (v.getId() == R.id.button4) {
-            intent.putExtra("VALUE1", big1.divide(big2,5, BigDecimal.ROUND_HALF_UP));
+        } else if ((v.getId() == R.id.button4) && (big2.signum()>0)) {
+            intent.putExtra("VALUE1", big1.divide(big2, 5, BigDecimal.ROUND_HALF_UP));
+        } else if ((v.getId() == R.id.button4) && (big2.signum()==0)) {
+            Toast.makeText(this, "0では割れません", Toast.LENGTH_LONG).show();
         }
         startActivity(intent);
     }
