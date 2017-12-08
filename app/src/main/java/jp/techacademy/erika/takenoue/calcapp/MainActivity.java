@@ -40,6 +40,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Intent intent = new Intent(this, SecondActivity.class);
         String str1 = mEditText1.getText().toString();
         String str2 = mEditText2.getText().toString();
+
+        try {
+            double d1 = Double.parseDouble(str1);
+            double d2 = Double.parseDouble(str2);
+        } catch (NumberFormatException e) {
+            Toast.makeText(this, "数値を入力してください", Toast.LENGTH_LONG).show();
+            return;
+        }
+
         BigDecimal big1 = new BigDecimal(str1);
         BigDecimal big2 = new BigDecimal(str2);
 
@@ -54,6 +63,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             intent.putExtra("VALUE1", big1.divide(big2, 5, BigDecimal.ROUND_HALF_UP));
         } else if ((v.getId() == R.id.button4) && (big2.signum()==0)) {
             Toast.makeText(this, "0では割れません", Toast.LENGTH_LONG).show();
+            return;
         }
         startActivity(intent);
     }
